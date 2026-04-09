@@ -1,39 +1,58 @@
 
 
-import enums.Speciality;
-import enums.Status;
-import model.Person;
-import model.Technician;
-import model.WorkshopManager;
+
+
+
+
+import model.Piece;
+import model.Repair;
 
 import java.util.Date;
-
+import java.util.Vector;
 
 public class Main {
     public static void main(String[] args) {
 
-        Person p1 = new Person("Amine", "B.", "amine@example.com", "amineLogin", "aminePass");
-        System.out.println("Testing Person:");
-        p1.display();
-
-        System.out.println("Auth1 (correct): " + p1.authentication1("amineLogin", "aminePass"));
-        System.out.println("Auth1 (wrong): " + p1.authentication1("amineLogin", "wrongPass"));
-        System.out.println("Auth2 (correct): " + p1.authentication2("amineLogin", "aminePass"));
-        System.out.println("Auth2 (wrong): " + p1.authentication2("amineLogin", "wrongPass"));
+        Piece p1 = new Piece("Alternator", 101, 2, 150.0);
+        Piece p2 = new Piece("Battery", 102, 1, 80.0);
+        Piece p3 = new Piece("Oil Filter", 103, 5, 20.0);
 
 
-        Technician tech = new Technician("Sara", "K.", "sara@example.com", "saraLogin", "saraPass",
-                12345, Speciality.IT);
-        System.out.println("\nTesting Technician:");
-        tech.display();
+        System.out.println("Initial Pieces:");
+        p1.Display();
+        p2.Display();
+        p3.Display();
 
 
-        WorkshopManager wm = WorkshopManager.getInstance("Ali", "M.", "ali@example.com", "aliLogin", "aliPass",
-                5, new Date(120, 1, 1), new Date(125, 1, 1), Status.Active);
-        System.out.println("\nTesting WorkshopManager:");
-        wm.display();
+        Vector<Piece> pieceList = new Vector<>();
+        pieceList.add(p1);
+        pieceList.add(p2);
 
-        int updatedExp = wm.updatig_Experiance_Date(new Date());
-        System.out.println("Updated Experience: " + updatedExp);
+
+        Repair repair = new Repair(new Date(), 3, "Engine diagnostics", pieceList, pieceList.iterator());
+
+
+        repair.addPiece("Oil Filter", 103, 5, 20.0);
+
+
+        System.out.println("\nRepair Details:");
+        repair.displayReperation();
+
+
+        double total = repair.calculateAmountReperation();
+        System.out.println("\nTotal Repair Amount: " + total);
+
+
+        repair.modifyPiece(102, "Battery Premium", 2, 100.0);
+
+        System.out.println("\nIs piece 101 available? " + repair.isAvailable(101));
+        System.out.println("Is piece 999 available? " + repair.isAvailable(999));
+
+
+        repair.deletePiece(101);
+
+
+        System.out.println("\nFinal Repair Details:");
+        repair.displayReperation();
     }
 }
