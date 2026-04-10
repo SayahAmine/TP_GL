@@ -6,34 +6,44 @@ import model.Person;
 import model.Technician;
 import model.WorkshopManager;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
 public class Main {
     public static void main(String[] args) {
 
-        Person p1 = new Person("Amine", "B.", "amine@example.com", "amineLogin", "aminePass");
-        System.out.println("Testing Person:");
-        p1.display();
-
-        System.out.println("Auth1 (correct): " + p1.authentication1("amineLogin", "aminePass"));
-        System.out.println("Auth1 (wrong): " + p1.authentication1("amineLogin", "wrongPass"));
-        System.out.println("Auth2 (correct): " + p1.authentication2("amineLogin", "aminePass"));
-        System.out.println("Auth2 (wrong): " + p1.authentication2("amineLogin", "wrongPass"));
 
 
-        Technician tech = new Technician("Sara", "K.", "sara@example.com", "saraLogin", "saraPass",
-                12345, Speciality.IT);
-        System.out.println("\nTesting Technician:");
-        tech.display();
+        Calendar cal = Calendar.getInstance();
+        cal.set(2020, Calendar.JANUARY, 1);
+        Date dateExp = cal.getTime();
+        cal.set(2025, Calendar.JANUARY, 1);
+        Date datePromo = cal.getTime();
 
 
-        WorkshopManager wm = WorkshopManager.getInstance("Ali", "M.", "ali@example.com", "aliLogin", "aliPass",
-                5, new Date(120, 1, 1), new Date(125, 1, 1), Status.Active);
-        System.out.println("\nTesting WorkshopManager:");
+        WorkshopManager wm = WorkshopManager.getInstance(
+                "Amine", "B.", "amine@example.com", "amineLogin", "aminePass",
+                5, dateExp, datePromo, Status.Active
+        );
+
+        System.out.println("=== Display WorkshopManager ===");
         wm.display();
 
+
+        System.out.println("\n=== Testing changePassword ===");
+        wm.changePassword("newSecurePass123");
+
+        System.out.println("\n=== Testing ToSring ===");
+        System.out.println(wm.ToSring());
+
+
+        System.out.println("\n=== Authentication Tests ===");
+        System.out.println("Auth1 (correct): " + wm.authentication1("amineLogin", "newSecurePass123"));
+        System.out.println("Auth2 (wrong): " + wm.authentication2("amineLogin", "wrongPass"));
+
+
         int updatedExp = wm.updatig_Experiance_Date(new Date());
-        System.out.println("Updated Experience: " + updatedExp);
+        System.out.println("\nUpdated Experience: " + updatedExp);
     }
 }

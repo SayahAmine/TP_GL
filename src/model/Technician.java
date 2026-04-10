@@ -27,6 +27,28 @@ public class Technician extends  Person {
     public Technician() {}
 
 
+    @Override
+    public void changePassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
+        this.setPassword(password);
+        System.out.println("Password successfully changed for WorkshopManager: " + getName());
+    }
+
+    @Override
+    public String ToSring() {
+        return "WorkshopManager{" +
+                "name='" + getName() + '\'' +
+                ", surname='" + getSurname() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", login='" + getLogin() + '\'' +
+                ", registartion number=" + registration_Number +
+                ", speciality=" + speciality+
+                '}';
+    }
+
+
     public void display(){
         super.display();
         System.out.println("Registration Number: " + this.registration_Number);
