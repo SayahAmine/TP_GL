@@ -1,49 +1,40 @@
 
 
 import enums.Speciality;
-import enums.Status;
-import model.Person;
 import model.Technician;
-import model.WorkshopManager;
+import model.Vehicle;
 
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class Main {
     public static void main(String[] args) {
 
+        Technician tech = new Technician("Ali", "Ben", "ali@example.com", "aliLogin", "aliPass", 101, Speciality.IT);
 
 
         Calendar cal = Calendar.getInstance();
-        cal.set(2020, Calendar.JANUARY, 1);
-        Date dateExp = cal.getTime();
-        cal.set(2025, Calendar.JANUARY, 1);
-        Date datePromo = cal.getTime();
+        cal.set(2009, Calendar.JUNE, 15);
+        Date acquisitionDate1 = cal.getTime();
 
+        Vehicle v1 = new Vehicle(acquisitionDate1, 15000, 123, "Peugeot", tech);
+        tech.addVehicle(v1);
 
-        WorkshopManager wm = WorkshopManager.getInstance(
-                "Amine", "B.", "amine@example.com", "amineLogin", "aminePass",
-                5, dateExp, datePromo, Status.Active
-        );
+        System.out.println("=== Vehicle 1 ===");
+        System.out.println("Model: " + v1.getModel());
+        System.out.println("Acquisition Date: " + v1.getAcquisitionDate());
+        System.out.println("Driver: " + v1.getDriver().getName());
+        System.out.println("Needs reform? " + v1.reformCourant());
 
-        System.out.println("=== Display WorkshopManager ===");
-        wm.display();
+        cal.set(2015, Calendar.JANUARY, 1);
+        Date acquisitionDate2 = cal.getTime();
 
+        Vehicle v2 = new Vehicle(acquisitionDate2, 20000, 456, "BMW", tech);
 
-        System.out.println("\n=== Testing changePassword ===");
-        wm.changePassword("newSecurePass123");
-
-        System.out.println("\n=== Testing ToSring ===");
-        System.out.println(wm.ToSring());
-
-
-        System.out.println("\n=== Authentication Tests ===");
-        System.out.println("Auth1 (correct): " + wm.authentication1("amineLogin", "newSecurePass123"));
-        System.out.println("Auth2 (wrong): " + wm.authentication2("amineLogin", "wrongPass"));
-
-
-        int updatedExp = wm.updatig_Experiance_Date(new Date());
-        System.out.println("\nUpdated Experience: " + updatedExp);
+        System.out.println("\n=== Vehicle 2 ===");
+        System.out.println("Model: " + v2.getModel());
+        System.out.println("Acquisition Date: " + v2.getAcquisitionDate());
+        System.out.println("Driver: " + (v2.getDriver() != null ? v2.getDriver().getName() : "None"));
+        System.out.println("Needs reform? " + v2.reformCourant());
     }
 }

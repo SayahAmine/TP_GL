@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public abstract class Person {
+public  class Person {
 
     private String name;
     private String surname;
@@ -15,9 +15,7 @@ public abstract class Person {
     private String login;
     private String password;
 
-    public abstract void changePassword(String password);
 
-    public abstract String ToSring();
 
 
     public Boolean authentication1(String login, String password) {

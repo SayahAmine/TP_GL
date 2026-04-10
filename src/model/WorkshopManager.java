@@ -53,31 +53,6 @@ public class WorkshopManager extends Person{
         return nbExperience;
     }
 
-
-    @Override
-    public void changePassword(String password) {
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty");
-        }
-        this.setPassword(password);
-        System.out.println("Password successfully changed for WorkshopManager: " + getName());
-    }
-
-    @Override
-    public String ToSring() {
-        return "WorkshopManager{" +
-                "name='" + getName() + '\'' +
-                ", surname='" + getSurname() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", login='" + getLogin() + '\'' +
-                ", nbExperience=" + nbExperience +
-                ", dateExperience=" + dateExperience +
-                ", datePromotion=" + datePromotion +
-                ", status=" + status +
-                '}';
-    }
-
-
     public void display() {
         super.display();
         System.out.println("Experience: " + nbExperience);

@@ -12,6 +12,8 @@ public class Technician extends  Person {
     private int registration_Number;
     private Speciality speciality;
 
+    private Vehicle vehicle;
+
 
     public Technician(String name, String surname, String email, String login, String password, int registration_Number, Speciality speciality) {
         super(name, surname, email, login, password);
@@ -26,26 +28,9 @@ public class Technician extends  Person {
 
     public Technician() {}
 
-
-    @Override
-    public void changePassword(String password) {
-        if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty");
-        }
-        this.setPassword(password);
-        System.out.println("Password successfully changed for WorkshopManager: " + getName());
-    }
-
-    @Override
-    public String ToSring() {
-        return "WorkshopManager{" +
-                "name='" + getName() + '\'' +
-                ", surname='" + getSurname() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", login='" + getLogin() + '\'' +
-                ", registartion number=" + registration_Number +
-                ", speciality=" + speciality+
-                '}';
+    public void addVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+        vehicle.setDriver(this);
     }
 
 
