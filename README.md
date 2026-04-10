@@ -48,4 +48,4 @@ Each branch contains its own environment classes that correspond directly to the
   - Complex relationships (`Repair`, `Piece`, `Supplier`, `Equipment`, `Vehicle`)
 
 ---
-
+Note (Ai was not used except in generating Main classes to test)
