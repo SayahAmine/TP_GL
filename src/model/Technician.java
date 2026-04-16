@@ -3,6 +3,9 @@ package model;
 import enums.Speciality;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class Technician extends Person {
@@ -13,6 +16,7 @@ public class Technician extends Person {
 
 
     private Technician chefEquipe;
+    private List<Technician> membres = new ArrayList<>();
 
     public Technician(String name, String surname, String email, String login, String password,
                       int registrationNumber, Speciality speciality) {
@@ -29,13 +33,17 @@ public class Technician extends Person {
         }
 
         if (this.chefEquipe != null) {
-            Technician oldChef = this.chefEquipe;
-            oldChef.setChefEquipe(null);
-            System.out.println("Old chef " + oldChef.getName() + " " + oldChef.getSurname() + " is now a technician.");
+            this.chefEquipe.getMembres().remove(this);
         }
 
         this.chefEquipe = newChef;
-        System.out.println("Technician " + newChef.getName() + " " + newChef.getSurname() + " is now the new team leader.");
+
+        if (!newChef.getMembres().contains(this)) {
+            newChef.getMembres().add(this);
+        }
+
+        System.out.println("Technician " + this.getName() + " now reports to " +
+                newChef.getName() + " " + newChef.getSurname());
     }
 
     public void addVehicle(Vehicle vehicle) {
